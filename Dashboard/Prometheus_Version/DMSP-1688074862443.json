@@ -1,0 +1,407 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "df63fdeb-b8af-4dde-b7b1-7c61c9616b78"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 10
+              },
+              {
+                "color": "yellow",
+                "value": 11
+              },
+              {
+                "color": "red",
+                "value": 12
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"mqtt_consumer_lat\", environment=\"dmsp\", host=\"telegraf\", instance=\"telegraf:9273\", job=\"telegraf\", topic=\"DMSP/GPS\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "lat"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"mqtt_consumer_lng\", environment=\"dmsp\", host=\"telegraf\", instance=\"telegraf:9273\", job=\"telegraf\", topic=\"DMSP/GPS\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "lng"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"mqtt_consumer_z\", environment=\"dmsp\", host=\"telegraf\", instance=\"telegraf:9273\", job=\"telegraf\", topic=\"DMSP/Acc\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Acc_z"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "name": "Street",
+            "opacity": 1,
+            "tooltip": true,
+            "type": "osm-standard"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "Value",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "{__name__=\"mqtt_consumer_z\", environment=\"dmsp\", host=\"telegraf\", instance=\"telegraf:9273\", job=\"telegraf\", topic=\"DMSP/Acc\"}",
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/star.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "z-acc",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 1.351613,
+          "lon": 103.737846,
+          "zoom": 10.66
+        }
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "df63fdeb-b8af-4dde-b7b1-7c61c9616b78"
+          },
+          "editorMode": "builder",
+          "expr": "mqtt_consumer_lat",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "df63fdeb-b8af-4dde-b7b1-7c61c9616b78"
+          },
+          "editorMode": "builder",
+          "expr": "mqtt_consumer_lng",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "df63fdeb-b8af-4dde-b7b1-7c61c9616b78"
+          },
+          "editorMode": "builder",
+          "expr": "mqtt_consumer_z",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "GPS Data",
+      "transformations": [
+        {
+          "id": "concatenate",
+          "options": {
+            "frameNameLabel": "frame",
+            "frameNameMode": "drop"
+          }
+        }
+      ],
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "df63fdeb-b8af-4dde-b7b1-7c61c9616b78"
+      },
+      "description": "Real-time Acc Data collected by MPU-6050 and transmitted back by sim7080g with MQTT.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"mqtt_consumer_x\", environment=\"dmsp\", host=\"telegraf\", instance=\"telegraf:9273\", job=\"telegraf\", topic=\"DMSP/Acc\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Acc_x"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"mqtt_consumer_y\", environment=\"dmsp\", host=\"telegraf\", instance=\"telegraf:9273\", job=\"telegraf\", topic=\"DMSP/Acc\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Acc_y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"mqtt_consumer_z\", environment=\"dmsp\", host=\"telegraf\", instance=\"telegraf:9273\", job=\"telegraf\", topic=\"DMSP/Acc\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Acc_z"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "df63fdeb-b8af-4dde-b7b1-7c61c9616b78"
+          },
+          "editorMode": "builder",
+          "expr": "mqtt_consumer_x",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "df63fdeb-b8af-4dde-b7b1-7c61c9616b78"
+          },
+          "editorMode": "builder",
+          "expr": "mqtt_consumer_y",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "df63fdeb-b8af-4dde-b7b1-7c61c9616b78"
+          },
+          "editorMode": "builder",
+          "expr": "mqtt_consumer_z",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Acc Data",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "DMSP",
+  "uid": "b53a8554-ca3b-4152-b6f0-f39eafc21141",
+  "version": 11,
+  "weekStart": ""
+}

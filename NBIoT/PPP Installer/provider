@@ -1,0 +1,17 @@
+#/etc/ppp/peers/ sim7080option
+/dev/ttyUSB2
+#/dev/pts/11
+115200
+nocrtscts
+noauth
+connect '/usr/sbin/chat -v -s -f /etc/ppp/sim7080-chat.dat'
+disconnect '/usr/sbin/chat -e -v "" +++ath'
+debug
+ipcp-accept-local
+ipcp-accept-remote
+usepeerdns
+defaultroute
+lcp-echo-failure 3
+lcp-echo-interval 2
+#asyncmap ffffffff
+#idle 48
